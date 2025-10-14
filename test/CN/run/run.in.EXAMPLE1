@@ -1,0 +1,44 @@
+
+
+# ----------------- Init Section -----------------
+variable       dt equal 1 #timestep 1fs
+variable       Tstart equal 300
+variable       Ttarget equal 300
+
+include "system.in.init"
+
+
+# ----------------- Atom Definition Section -----------------
+
+read_data "system.data"
+
+# ----------------- Settings Section -----------------
+
+include "system.in.settings"
+
+velocity       all create ${Tstart} 4581123 mom yes rot yes dist gaussian
+timestep       ${dt}
+
+thermo         100
+thermo_style   custom step time temp press density vol etotal ke pe
+
+min_style cg
+minimize 1.0e-4 1.0e-6 10000 1000
+thermo         100
+thermo_style   custom step time temp press density vol etotal ke pe
+
+write_data minimize.data pair ij
+reset_timestep 0
+
+fix              1 all npt temp ${Tstart} ${Ttarget} 100 iso 1.0 1.0 1000.0
+dump           dumpNPT all custom 1000 dump.npt.atom.* id type xs ys zs vx vy vz
+run            1000
+write_data npt.data pair ij
+
+unfix            1
+undump           dumpNPT
+
+fix              2 all nve
+dump           dumpNVE all custom 1000 dump.nve.atom.* id type xs ys zs vx vy vz
+run            000
+write_data nvt.data pair ij
