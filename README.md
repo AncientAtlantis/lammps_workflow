@@ -56,8 +56,6 @@ cd lammps_sims
 ```
 将准备好的输入文件放在工作目录下，执行
 ```bash
-, msd, deff, CN, rdf
-
 水分子动能计算：
 python main.py -d . -i water_ke.in water.lmp -o log.lammps -t ke -p pre
 python main.py -d . -i temp -o temp -t ke -p run
