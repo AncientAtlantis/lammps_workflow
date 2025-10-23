@@ -11,7 +11,7 @@
 ## 计算场景说明
 该工作流支持以下 LAMMPS 计算任务：
 
-density：体系密度，例如液态水的密度随温度的变化
+density：体系密度，例如液态水的密度随时间的变化
 
 ke：	体系动能，	监测模拟过程中体系的动能波动
 
@@ -49,18 +49,62 @@ python main.py -d <工作路径> -i <输入文件> -o <输出文件> -t <任务�
   -j, --slurm_jobid ID     Slurm 作业 ID，用于后处理阶段
 ```
 ## 场景示例
-构建一个工作目录
+首先新建一个工作目录
 ```bash
 mkdir lammps_sims 
 cd lammps_sims
 ```
 将准备好的输入文件放在工作目录下，执行
 ```bash
-水分子动能：
-前处理
+, msd, deff, CN, rdf
+
+水分子动能计算：
 python main.py -d . -i water_ke.in water.lmp -o log.lammps -t ke -p pre
-提交计算
 python main.py -d . -i temp -o temp -t ke -p run
-后处理
 python main.py -d . -i temp -o log.lammps -t ke -p post
+
+水分子势能计算：
+python main.py -d . -i water_ke.in water.lmp -o log.lammps -t pe -p pre
+python main.py -d . -i temp -o temp -t pe -p run
+python main.py -d . -i temp -o log.lammps -t pe -p post
+
+水分子总能量计算：
+python main.py -d . -i water_ke.in water.lmp -o log.lammps -t etotal -p pre
+python main.py -d . -i temp -o temp -t ke -p run
+python main.py -d . -i temp -o log.lammps -t ke -p post
+
+水分子压强计算：
+python main.py -d . -i water_ke.in water.lmp -o log.lammps -t press -p pre
+python main.py -d . -i temp -o temp -t press -p run
+python main.py -d . -i temp -o log.lammps -t press -p post
+
+水分子密度计算：
+python main.py -d . -i water_ke.in water.lmp -o log.lammps -t density -p pre
+python main.py -d . -i temp -o temp -t density -p run
+python main.py -d . -i temp -o log.lammps -t density -p post
+
+水分子温度计算：
+python main.py -d . -i water_ke.in water.lmp -o log.lammps -t T -p pre
+python main.py -d . -i temp -o temp -t T -p run
+python main.py -d . -i temp -o log.lammps -t T -p post
+
+水分子均方位移计算：
+python main.py -d . -i water_ke.in water.lmp -o msd.data -t msd -p pre
+python main.py -d . -i temp -o temp -t msd -p run
+python main.py -d . -i temp -o msd.data -t msd -p post
+
+水分子扩散系数计算：
+python main.py -d . -i water_ke.in water.lmp -o msd.data -t deff -p pre
+python main.py -d . -i temp -o msd.data -t deff -p run
+python main.py -d . -i temp -o msd.data -t deff -p post
+
+水分子径向分布函数计算：
+python main.py -d . -i water_ke.in water.lmp -o rdf.data -t rdf -p pre
+python main.py -d . -i temp -o temp -t rdf -p run
+python main.py -d . -i temp -o rdf.data -t rdf -p post
+
+水分子配位数计算：
+python main.py -d . -i water_ke.in water.lmp -o rdf.data -t CN -p pre
+python main.py -d . -i temp -o temp -t CN -p run
+python main.py -d . -i temp -o rdf.data -t CN -p post
 ```
