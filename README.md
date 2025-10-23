@@ -48,3 +48,19 @@ python main.py -d <工作路径> -i <输入文件> -o <输出文件> -t <任务�
 可选参数：
   -j, --slurm_jobid ID     Slurm 作业 ID，用于后处理阶段
 ```
+## 场景示例
+构建一个工作目录
+```bash
+mkdir lammps_sims 
+cd lammps_sims
+```
+将准备好的输入文件放在工作目录下，执行
+```bash
+水分子动能：
+前处理
+python main.py -d . -i water_ke.in water.lmp -o log.lammps -t ke -p pre
+提交计算
+python main.py -d . -i temp -o temp -t ke -p run
+后处理
+python main.py -d . -i temp -o log.lammps -t ke -p post
+```
