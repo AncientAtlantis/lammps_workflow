@@ -21,8 +21,8 @@ python main.py -d <工作路径> -i <输入文件> -o <输出文件> -t <任务�
 ```bash
 必需参数：
   -d, --destination DIR    LAMMPS 计算任务的工作路径
-  -i, --inputs FILES       LAMMPS 计算的输入文件名列表
-  -o, --output FILE        LAMMPS 计算的输出文件名称
+  -i, --inputs FILES       LAMMPS 计算的输入文件名列表，至少需要指定一个文件，并需提前放置于destination DIR
+  -o, --output FILE        LAMMPS 计算的输出文件名称，仅支持一个文件
   -t, --task TASK          任务类型: density, ke, pe, etotal, press, T, msd, deff, CN, rdf
   -p, --process PROCESS    处理类型: pre, run, post
 
@@ -54,6 +54,3 @@ python main.py -i ./POSCAR -p post -t bader
 python main.py -i ./POSCAR -p pre -t magnetic
 python main.py -i ./POSCAR -p post -t magnetic
 ```
-
-## 检查逻辑
-现在relx之外的所有任务，都先检查relax目录下结果是否可用，可用则使用relax目录下结果，否则使用-i POSCAR或其他.cif .vasp文件
