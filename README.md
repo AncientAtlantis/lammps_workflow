@@ -9,8 +9,20 @@
 后处理 (post)：提取和分析计算结果
 
 ## 计算场景说明
+支持的计算任务类型
+该工作流支持以下 LAMMPS 计算任务：
 
-（例如：我需要计算xx的压力。我需要计算水的势能...）这样的。
+任务类型	计算内容	典型应用场景
+density	体系密度	我需要计算液态水的密度随温度的变化
+ke	动能	我需要监测模拟过程中体系的动能波动
+pe	势能	我需要计算蛋白质-配体复合物的结合势能
+etotal	总能量	我需要验证能量守恒，检查模拟的稳定性
+press	压力	我需要计算等温压缩过程中的体系压力
+T	温度	我需要监控体系的温度平衡过程
+msd	均方位移	我需要计算离子在电解质中的扩散系数
+deff	扩散系数	我需要量化水分子的自扩散能力
+CN	配位数	我需要分析金属熔体中原子的局部结构
+rdf	径向分布函数	我需要研究液态金属的结构特征
 
 ## 基本用法
 ```
@@ -28,29 +40,4 @@ python main.py -d <工作路径> -i <输入文件> -o <输出文件> -t <任务�
 
 可选参数：
   -j, --slurm_jobid ID     Slurm 作业 ID，用于后处理阶段
-```
-
-python main.py -i ./POSCAR -p pre -t relax 
-python main.py -i ./POSCAR -p post -t relax 
-
-python main.py -i ./POSCAR -p pre -t scf 
-python main.py -i ./POSCAR -p post -t scf 
-
-python main.py -i ./POSCAR -p pre -t dos 
-python main.py -i ./POSCAR -p post -t dos
-
-python main.py -i ./POSCAR -p pre -t PBE_band 
-python main.py -i ./POSCAR -p post -t PBE_band
-
-python main.py -i ./POSCAR -p pre -t elastic 
-python main.py -i ./POSCAR -p post -t elastic
-
-python main.py -i ./POSCAR -p pre -t absorption 
-python main.py -i ./POSCAR -p post -t absorption
-
-python main.py -i ./POSCAR -p pre -t bader
-python main.py -i ./POSCAR -p post -t bader
-
-python main.py -i ./POSCAR -p pre -t magnetic
-python main.py -i ./POSCAR -p post -t magnetic
 ```
