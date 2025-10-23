@@ -1,19 +1,12 @@
 # Materials Chemistry  Agent Tools
-## 新加了 弹性模量 吸收光谱 bader电荷三个模块
+## 代码说明
 
-## 添加了临时 .vaspkit 配置文件
-在 core/Function.py 中添加了 get_vaspkit_config 函数，用于获取 .vaspkit 配置文件
-在32行
-        project_root = str(Path("/root/aiagent/work_flow/vasp"))
-把这个路径改成保存配置文件.vaspkit的目录
-.vaspkit 文件 主要改下面两行
 
-```
-# 从默认的 AUTO_PLOT = .False. 改成 .True. 
-AUTO_PLOT                     =     .TRUE.  
-# 添加一个当前python的绝对路径
-PYTHON_BIN = <python 的绝对路径>
-```
+## 计算场景说明
+
+## 计算场景的情景
+
+（例如：我需要计算xx的压力。我需要计算水的势能...）这样的。
 
 ## 用法
 ```
